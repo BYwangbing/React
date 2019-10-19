@@ -1,0 +1,33 @@
+.title {
+    color: #F00;
+    text-align: center;
+}
+
+.item {
+    margin: 10px;
+    padding: 10px;
+    border: 1px dashed #ccc;
+    box-shadow: 0 0 10px #ccc
+}
+
+.user {
+    font-size: 14px;
+}
+
+.content {
+    font-size: 12px;
+}
+
+/* css 模块化，只针对 类选择器 和 Id选择器生效 */
+/* CSS 模块化 不会 将 标签选择器模块化 */
+
+/* 注意： 被 :local() 包裹起来的类名，会被模块化； 默认情况下， 所有的类名和ID，都被 模块化了； */
+
+/* 注意：被 :global() 包裹起来的类名，不会被模块化，而是会全局生效； */
+:global(*) {
+    font-family: '宋体', serif;
+}
+
+:global(.test) {
+    font-style: italic;
+}

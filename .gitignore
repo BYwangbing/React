@@ -1,2 +1,3 @@
 # Project exclude paths
 /01.webpack-base/node_modules/
+/02.react-base/node_modules/
