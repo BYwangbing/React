@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <title>04.组件三大属性_state</title>
+</head>
+<body>
+<div id="app"></div>
+<script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+<script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+<script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+<script type="text/babel">
+    class MyComponent extends React.Component {
+        constructor() {
+            super();
+            this.state = {
+                msg: '你看，城南的花都开了，该你熬的也都熬过来了，所也别不高兴了'
+            };
+            //将新增方法中的this强制绑定为组件对象
+            this.show_1 = this.show_1.bind(this)
+        }
+
+        render() {
+            return (
+                <div>
+                    <hr/>
+                    &emsp;
+                    <button className="btn btn-success" onClick={this.show_1}>show_1( ) bind强制绑定this</button>
+                    &emsp;
+                    <button className="btn btn-info" onClick={() => {
+                        this.show_2();
+                    }}> show_2( ) 箭头函数
+                    </button>
+                    &emsp;
+                    <button className={['btn', 'btn-danger'].join(' ')} onClick={this.show_3}>show_3( ) 箭头函数</button>
+                    <hr/>
+                    <h3>{this.state.msg}</h3>
+                </div>
+            );
+        }
+
+        show_1() {
+            // 内部的this默认不是组件对象，而是undefined 要将新增方法中的this强制绑定为组件对象bind
+            this.setState({
+                msg: '独自走在繁华的都市，擦身而过的是熙熙攘攘的人群。路灯拉长孤独的身影，热闹都是旁人的，你总是一个人...'
+            })
+        }
+
+        show_2 = () => {
+            this.setState({
+                msg: '寒来暑往 秋收冬藏 希望我们来日方长'
+            })
+        };
+
+        show_3 = () => {
+            this.setState({
+                msg: '今夜は月が绮丽ですね」'
+            })
+        }
+    }
+
+    ReactDOM.render(<MyComponent/>, document.getElementById('app'))
+</script>
+</body>
+</html>

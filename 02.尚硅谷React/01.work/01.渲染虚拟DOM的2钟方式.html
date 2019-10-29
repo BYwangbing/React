@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app"></div>
+<div id="test1"></div>
+<div id="test2"></div>
+<script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+<script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+<!-- 生产环境中不建议使用 -->
+<script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+
+<script type="text/babel">
+    // 创建虚拟DOM元素 
+    const myH3 = <h3>独自走在繁华的都市，擦身而过的是熙熙攘攘的人群。路灯拉长孤独的身影，热闹都是旁人的，你总是一个人...</h3>;
+    // 渲染虚拟DOM到页面真实DOM容器中 
+    ReactDOM.render(myH3, document.getElementById('app'))
+</script>
+
+<script type="text/javascript">
+    const myId = 'Smile';
+    const msg = 'I Like You!';
+    // var element = React.createElement('h1', {id:'myTitle'},'hello')
+    const myh3 = React.createElement('h3', {id: myId.toLocaleLowerCase()}, msg.toLocaleLowerCase());
+    ReactDOM.render(myh3, document.getElementById('test1'))
+</script>
+
+<script type="text/babel">
+    const myH2 = <h2 id={myId.toLocaleUpperCase()}>{msg.toLocaleUpperCase()}</h2>;
+    ReactDOM.render(myH2, document.getElementById('test2'))
+</script>
+
+</body>
+</html>

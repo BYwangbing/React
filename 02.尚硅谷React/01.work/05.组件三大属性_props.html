@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <title>05.组件三大属性_props</title>
+</head>
+<body>
+<div id="root"></div>
+<div id="app"></div>
+
+<script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+<script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+<script src="prop-types.js"></script>
+<script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+<script type="text/babel">
+
+    const Animal = {
+        name: '王福坤',
+        age: 22,
+        gender: '男'
+    };
+
+    function MyProps_1(props) {
+        return <div>
+            <ul>
+                <li>{props.name}</li>
+                <li>{props.age}</li>
+                <li>{props.gender}</li>
+            </ul>
+        </div>
+    }
+
+    ReactDOM.render(<MyProps_1 {...Animal}/>, document.getElementById('root'));
+
+    const Person = {
+        name: '王福坤坤',
+    };
+
+    class MyProps_2 extends React.Component {
+        render() {
+            return (
+                <div>
+                    <ul>
+                        <li>{this.props.name}</li>
+                        <li>{this.props.sex}</li>
+                        <li>{this.props.age}</li>
+                    </ul>
+                </div>
+            );
+        }
+    }
+
+    // 1)	对props中的属性值进行类型限制和必要性限制
+    MyProps_2.propTypes = {
+        name: PropTypes.string.isRequired,
+        age: PropTypes.number.isRequired
+    };
+    // 指定属性的默认值
+    MyProps_2.defaultProps = {
+        sex: '男',
+        age: 18
+    };
+
+    ReactDOM.render(<MyProps_2 {...Person}/>, document.getElementById('app'));
+</script>
+</body>
+</html>

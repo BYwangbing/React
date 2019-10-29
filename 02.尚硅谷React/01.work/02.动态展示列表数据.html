@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app"></div>
+<div id="list"></div>
+<script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+<script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+<script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+
+<script type="text/babel">
+    // 创建虚拟DOM元素
+    const myH3 = <h3>独自走在繁华的都市，擦身而过的是熙熙攘攘的人群。路灯拉长孤独的身影，热闹都是旁人的，你总是一个人...</h3>;
+    // 渲染虚拟DOM到页面真实DOM容器中
+    ReactDOM.render(myH3, document.getElementById('app'))
+</script>
+
+<script type="text/babel">
+    const names = ['Html', 'CSS', 'Js', 'Bootstrap', 'jQuery', 'Sass', 'Zepto', 'Node', 'Vue', 'React'];
+    const myDiv = <ul>
+        {names.map((item, index) => <li key={index}>{item}</li>)}
+    </ul>;
+    ReactDOM.render(myDiv, document.getElementById('list'))
+</script>
+
+
+</body>
+</html>

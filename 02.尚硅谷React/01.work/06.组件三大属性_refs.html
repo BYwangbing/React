@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <title>05.组件三大属性_props</title>
+</head>
+<body>
+<hr/>
+<div id="app"></div>
+
+<script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+<script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+<script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+<script type="text/babel">
+
+    class MyComponent extends React.Component {
+        constructor() {
+            super();
+        }
+
+        render() {
+            return (
+                <div>
+                    <h3>书上说 如果你对一个人有感情 你更喜欢喊他全名...</h3>
+                    <label>
+                        <input type="text" ref="text"/>
+                    </label>
+                    {'   '}
+                    <button className={['btn', 'btn-success'].join(' ')} onClick={this.handClick_1}>this.refs.text.value</button>
+                    <br />
+                    <label>
+                        <input type="text" ref={input => this.msgInput = input}/>
+                    </label>
+                    {'   '}
+                    <button className={['btn', 'btn-danger'].join(' ')} onClick={this.handClick_2}>this.msgInput.value</button>
+                    <br />
+                    <label>
+                        <input type="text" placeholder="失去焦点提示数据" onBlur={this.handleBlur}/>
+                    </label>
+                </div>
+            );
+        }
+
+        handClick_1 = () => {
+            var text = this.refs.text.value;
+            alert(text);
+        };
+
+        handClick_2 = () => {
+            var msgInput = this.msgInput.value;
+            alert(msgInput);
+        };
+
+        handleBlur = (e) => {
+            var event = e.target.value;
+            console.log(event);
+        };
+    }
+
+    ReactDOM.render(<MyComponent/>, document.getElementById('app'));
+</script>
+</body>
+</html>

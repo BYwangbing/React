@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+<div id="app"></div>
+<div id="example"></div>
+<script type="text/javascript" src="./js/react.development.js"></script>
+<script type="text/javascript" src="./js/react-dom.development.js"></script>
+<script type="text/javascript" src="./js/prop-types.js"></script>
+<script type="text/javascript" src="./js/babel.min.js"></script>
+<script type="text/babel">
+    // 创建虚拟DOM元素
+    const myH3 = <h3>独自走在繁华的都市，擦身而过的是熙熙攘攘的人群。路灯拉长孤独的身影，热闹都是旁人的，你总是一个人...</h3>;
+    // 渲染虚拟DOM到页面真实DOM容器中
+    ReactDOM.render(myH3, document.getElementById('app'))
+</script>
+
+<script type="text/babel">
+    class LoginForm extends React.Component {
+        constructor() {
+            super();
+            this.state = {
+                password: ''
+            }
+        }
+
+        handleSubmit = (event) => {
+            const name = this.name.value;
+            const password = this.password.value;
+            alert(`提交的名字为： ${name} and 密码为： ${password}`);
+            event.preventDefault();
+        };
+
+        handleChange = (event) => {
+            const pwd = event.target.value;
+            this.setState({
+                password: pwd
+            }, function () {
+                console.log(this.state.password);
+            });
+        };
+
+        render() {
+            return (
+                <div>
+                    <form onSubmit={this.handleSubmit}>
+                        <label>
+                            <input type="text" placeholder="请输入用户名"
+                                   ref={(name) => this.name = name} autoComplete="text"/>
+                        </label>
+                        {' '}
+                        <label>
+                            <input type="password" placeholder="请输入密码" value={this.state.password }
+                                   onChange={this.handleChange} autoComplete="password"
+                                   ref={(password) => this.password = password} />
+                        </label>
+                        {' '}
+                        <button type="submit">提交</button>
+                    </form>
+                </div>
+            );
+        }
+    }
+
+    ReactDOM.render(<LoginForm/>, document.getElementById('example'))
+</script>
+
+</body>
+</html>

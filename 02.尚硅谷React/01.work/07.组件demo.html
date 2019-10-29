@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+<div id="app"></div>
+<div id="example"></div>
+<script type="text/javascript" src="./js/react.development.js"></script>
+<script type="text/javascript" src="./js/react-dom.development.js"></script>
+<script type="text/javascript" src="./js/prop-types.js"></script>
+<script type="text/javascript" src="./js/babel.min.js"></script>
+<script type="text/babel">
+    // 创建虚拟DOM元素
+    const myH3 = <h3>独自走在繁华的都市，擦身而过的是熙熙攘攘的人群。路灯拉长孤独的身影，热闹都是旁人的，你总是一个人...</h3>;
+    // 渲染虚拟DOM到页面真实DOM容器中
+    ReactDOM.render(myH3, document.getElementById('app'))
+</script>
+
+<script type="text/babel">
+    /*
+        1)拆分组件: 拆分界面,抽取组件
+        2)实现静态组件: 使用组件实现静态页面效果
+        3)实现动态组件
+            ① 动态显示初始化数据
+            ② 交互功能(从绑定事件监听开始)
+     */
+    // 应用组件
+    class Add extends React.Component {
+        constructor() {
+            super();
+            this.state = {
+                todo: ['吃饭', '睡觉', '打豆豆']
+            }
+        }
+
+        add = (todo) => {
+            const todoState = this.state.todo;
+            todoState.unshift(todo);
+            // 更新状态
+            this.setState({
+                todo: todoState
+            })
+        };
+
+        render() {
+            const {todo} = this.state;
+            return (
+                <div>
+                    <TodoAdd add={this.add} count={todo.length}/>
+                    <TodoList todo={todo}/>
+                </div>
+            );
+        }
+
+    }
+
+    // 添加todo组件
+    class TodoAdd extends React.Component {
+        render() {
+            return (
+                <div>
+                    <h3>Simple Todo List</h3>
+                    <label>
+                        <input type="text" ref={input => this.msgInput = input}/>
+                    </label>
+                    {' '}
+                    <button onClick={this.addTodo}>Add #{this.props.count}</button>
+                </div>
+            );
+        }
+
+        addTodo = () => {
+            const msgInput = this.msgInput.value.trim();
+            if (!msgInput) {
+                return
+            }
+            // 保存到todo
+            this.props.add(msgInput);
+            // 清除输入
+            this.msgInput.value = ''
+        }
+
+    }
+
+    TodoAdd.propTypes = {
+        add: PropTypes.func.isRequired,
+        count: PropTypes.number.isRequired
+    };
+
+    // todo列表组件
+    class TodoList extends React.Component {
+        render () {
+            const {todo} = this.props;
+            return <div>
+                <ul>
+                    {todo.map((item, index) => <li key={index}>{item}</li>)}
+                </ul>
+            </div>
+        }
+    }
+    TodoList.propTypes = {
+        todo: PropTypes.array.isRequired
+    };
+
+    ReactDOM.render(<Add />, document.getElementById('example'))
+
+</script>
+
+</body>
+</html>

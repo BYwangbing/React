@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>03.创建组件的两种方式</title>
+</head>
+<body>
+<div id="app"></div>
+<div id="root"></div>
+<script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+<script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+<script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+<script type="text/babel">
+    function MyComponent() {
+        return <div>
+            <h2>厂函数组件(简单组件)</h2>
+            <h3>独自走在繁华的都市，擦身而过的是熙熙攘攘的人群。路灯拉长孤独的身影，热闹都是旁人的，你总是一个人...</h3>
+        </div>
+    }
+
+    class MyComponent2 extends React.Component {
+        render() {
+            console.log(this);
+            return (
+                <div>
+                    <h2>ES6类组件(复杂组件)</h2>
+                    <h3>书上说 如果你对一个人有感情 你更喜欢喊他全名...</h3>
+                </div>
+            );
+        }
+    }
+    ReactDOM.render(<MyComponent/>, document.getElementById('app'));
+    ReactDOM.render(<MyComponent2/>, document.getElementById('root'))
+</script>
+</body>
+</html>
