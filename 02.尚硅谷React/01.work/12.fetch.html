@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div id="app"></div>
+<div id="example"></div>
+<script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+<script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+<script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+<script src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.js"></script>
+<script type="text/babel">
+    // 创建虚拟DOM元素 
+    const myH3 = <h3>独自走在繁华的都市，擦身而过的是熙熙攘攘的人群。路灯拉长孤独的身影，热闹都是旁人的，你总是一个人...</h3>;
+    // 渲染虚拟DOM到页面真实DOM容器中 
+    ReactDOM.render(myH3, document.getElementById('app'))
+</script>
+<script type="text/babel">
+    /*
+      需求:
+        1. 界面效果如下
+        2. 根据指定的关键字在github上搜索匹配的最受关注的库
+        3. 显示库名, 点击链接查看库
+        4. 测试接口: https://api.github.com/search/repositories?q=r&sort=stars
+      */
+    class MostStarRepo extends React.Component {
+        constructor() {
+            super();
+            this.state = {
+                req: ''
+            }
+        }
+
+        componentDidMount() {
+            const url = `https://api.github.com/search/repositories?q=r&sort=stars`;
+            /*axios.get(url)
+                .then(response => {
+                    const result = response.data;
+                    const reqItem = result.items;
+                    this.setState({
+                        req: reqItem
+                    })
+                })
+                .catch(error => {
+                    console.log(error);
+                    alert('请求失败 ' + error.message)
+                })*/
+            /*fetch(url).then(function (response) {
+                return response.json()
+            }).then(function (data) {
+                console.log(data)
+            }).catch(function (e) {
+                console.log(e)
+            });*/
+            fetch(url).then(response => {
+                return response.json()
+            }).then(data => {
+                console.log(data);
+                const reqItem = data.items;
+                this.setState({
+                    req: reqItem
+                })
+            }).catch(e => {
+                console.log(e.message);
+            })
+        }
+
+        render() {
+            const reqItem = this.state.req;
+            if (!reqItem) {
+                return <h3>Loading……</h3>
+            } else {
+                return (
+                    <div>
+                        <hr/>
+                        <ul>
+                            {reqItem.map((item, index) => (
+                                <li key={index}>
+                                    第 {index + 1} 是: <a href={item.html_url}>{item.name}</a>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                )
+            }
+        }
+    }
+
+    ReactDOM.render(<MostStarRepo/>, document.getElementById('example'))
+</script>
+</body>
+</html>
